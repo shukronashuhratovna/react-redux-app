@@ -1,11 +1,32 @@
 import { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { icon } from '../constants'
+import AuthService from '../service/auth'
+import { registerUserStart, registerUserSuccess, registerUserFailure } from '../slice/auth'
 import { Input } from '../ui'
 
 const Register = () => {
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const dispatch = useDispatch()
+    const { isLoading } = useSelector(state => state.auth)
+
+    const registerHandler = async e => {
+        e.preventDefault()
+        dispatch(registerUserStart())
+        const user = { 'username': name, email, password }
+        try {
+            console.log(user);
+            const response = await AuthService.userRegister(user)
+            console.log(response);
+            dispatch(registerUserSuccess())
+        } catch (error) {
+            dispatch(registerUserFailure())
+        }
+
+    }
+
     return (
         <div className='form-sign-in m-auto w-25 text-center'>
             <form>
@@ -16,7 +37,9 @@ const Register = () => {
                 <Input type='email' label={'Email'} state={email} setState={setEmail} />
                 <Input type='password' label={'Password'} state={password} setState={setPassword} />
 
-                <button className="btn btn-primary w-100 py-2 mt-2" type="submit">Sign Up</button>
+                <button className="btn btn-primary w-100 py-2 mt-2" disabled={isLoading} onClick={registerHandler} type="submit">
+                    {isLoading ? 'loading...' : 'Register'}
+                </button>
             </form>
         </div>
     )
