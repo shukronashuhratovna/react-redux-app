@@ -4,6 +4,7 @@ import { icon } from '../constants'
 import AuthService from '../service/auth'
 import { signUserStart, signUserFailure, signUserSuccess } from '../slice/auth'
 import { Input } from '../ui'
+import { ValidationError } from './'
 
 const Register = () => {
     const [name, setName] = useState('')
@@ -32,7 +33,7 @@ const Register = () => {
             <form>
                 <img className="mb-4" src={icon} alt="" width="72" height="60" />
                 <h1 className="h3 mb-3 fw-normal">Please register</h1>
-
+                <ValidationError />
                 <Input type='text' label={'Username'} state={name} setState={setName} />
                 <Input type='email' label={'Email'} state={email} setState={setEmail} />
                 <Input type='password' label={'Password'} state={password} setState={setPassword} />
