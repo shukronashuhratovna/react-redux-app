@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 import { icon } from '../constants'
 import AuthService from '../service/auth'
 import { signUserStart, signUserFailure, signUserSuccess } from '../slice/auth'
@@ -12,6 +13,7 @@ const Register = () => {
     const [password, setPassword] = useState('')
     const dispatch = useDispatch()
     const { isLoading } = useSelector(state => state.auth)
+    const navigate = useNavigate()
 
     const registerHandler = async e => {
         e.preventDefault()
@@ -20,8 +22,8 @@ const Register = () => {
         try {
             console.log(user);
             const response = await AuthService.userRegister(user)
-            console.log(response);
-            dispatch(signUserSuccess())
+            dispatch(signUserSuccess(response.user))
+            navigate('/')
         } catch (error) {
             dispatch(signUserFailure(error.response.data.errors))
         }
