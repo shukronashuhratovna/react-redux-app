@@ -2,9 +2,8 @@
 import { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { Routes, Route } from 'react-router-dom'
-import {Main, Login, Register, Navbar} from './components'
+import {Main, Login, Register, Navbar, ArticleDetail, CreateArticle} from './components'
 import { getItem } from './helpers/persistance-storage'
-import ArticleService from './service/article'
 import AuthService from './service/auth'
 import { signUserSuccess } from './slice/auth'
 
@@ -20,30 +19,21 @@ const App = () => {
     }
   }
 
-  const getArticles = async () => {
-    try {
-      const response = await ArticleService.getArticles()
-      console.log(response);
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
   useEffect(() => {
     const token = getItem('token')
     if(token)
       getUser()
-    
-    getArticles()
   }, [])
   
   return (
-    <div>
+    <div className='container'>
       <Navbar/>
       <Routes>
         <Route path='/' element={<Main /> } />
         <Route path='/login' element={<Login /> } />
         <Route path='/register' element={<Register /> } />
+        <Route path='/article/:slug' element={<ArticleDetail /> } />
+        <Route path='/create-article' element={<CreateArticle /> } />
         
       </Routes>
     </div>
