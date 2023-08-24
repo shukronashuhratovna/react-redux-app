@@ -19,7 +19,7 @@ const CreateArticle = () => {
         }
     }
 
-    const formProps = { title, description, body, setTitle, setDescription, setBody, formSubmit }
+    const formProps = { title, description, body, setTitle, setDescription, setBody, formSubmit, btnName: 'Create' }
     return (
         <div className="text-center">
             <h1 className="fs-2">Create article</h1>

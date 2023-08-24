@@ -23,7 +23,9 @@ const Navbar = () => {
             <nav className="d-inline-flex mt-2 mt-md-0 ms-md-auto">
                 {localStorage.getItem('token') ?
                     <>
-                        <p className="me-3 m-0 fs-5 py-2 link-body-emphasis text-decoration-none">{user?.username}</p>
+                        <Link to='/profile' className="me-3 py-2 link-body-emphasis text-decoration-none">
+                            <p className="me-3 m-0 fs-5 py-2 link-body-emphasis text-decoration-none">{user?.username}</p>
+                        </Link>
                         <Link to='/create-article' className="me-3 py-2 link-body-emphasis text-decoration-none">
                             <button className="btn btn-outline-info">create article &#128521; </button>
                         </Link>

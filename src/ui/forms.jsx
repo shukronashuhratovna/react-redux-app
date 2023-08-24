@@ -1,6 +1,6 @@
 import { Input, Textarea } from './'
 const Form = (props) => {
-    const { title, description, body, setTitle, setDescription, setBody, formSubmit } = props
+    const { title, description, body, setTitle, setDescription, setBody, formSubmit, btnName } = props
 
     return (
         <form onSubmit={formSubmit}>
@@ -9,7 +9,7 @@ const Form = (props) => {
             <Textarea label={'body'} state={body} setState={setBody} height={'250px'} />
 
             <button className="btn btn-primary w-100 py-2 mt-2" type="submit">
-                Create
+                {btnName}
             </button>
         </form>
     )
